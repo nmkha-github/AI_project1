@@ -117,7 +117,7 @@ def makeAdjList(cellMatrix):
                 cell.adj.append(cellMatrix[cell.teleport[0]][cell.teleport[1]])
 
 
-def visualize_maze(matrix, bonus, start, end, route=None, visited=None):
+def visualize_maze(matrix, bonus, start, end,outputPath, route=None, visited=None):
     """
     Args:
       1. matrix: The matrix read from the input file,
@@ -187,8 +187,8 @@ def visualize_maze(matrix, bonus, start, end, route=None, visited=None):
 
     plt.xticks([])
     plt.yticks([])
+    plt.savefig(outputPath)
     plt.show()
-
     print(f'Starting point (x, y) = {start[0], start[1]}')
     print(f'Ending point (x, y) = {end[0], end[1]}')
 
