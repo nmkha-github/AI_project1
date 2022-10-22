@@ -2,13 +2,11 @@ import os
 import sys
 sys.path.append(os.getcwd())
 from queue import PriorityQueue
-from .Heuristic import *
-def astar(beginCell, exitCell,visitedOrder,type):
+def astar(beginCell, exitCell,visitedOrder,heuristic):
     if beginCell == exitCell:
         return
     open = PriorityQueue()
     close = set()
-    heuristic = Heuristic(exitCell, type)
     beginCell.f = 0+heuristic.getValue(beginCell)
     open.put((beginCell.f, beginCell))
     while not open.empty():

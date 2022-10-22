@@ -3,12 +3,10 @@ import sys
 sys.path.append(os.getcwd())
 from typing import Any
 from queue import PriorityQueue
-from .Heuristic import *
-def gbfs(beginCell, exitCell,visitedOrder,type):
+def gbfs(beginCell, exitCell,visitedOrder,heuristic):
     if beginCell==exitCell:
         return
     open=PriorityQueue()
-    heuristic=Heuristic(exitCell,type)
     beginCell.f=heuristic.getValue(beginCell)
     open.put((beginCell.f,beginCell))
     while not open.empty():
