@@ -1,2 +1,2 @@
 #!/bin/bash
-python source/main.py
+py source/main.py
