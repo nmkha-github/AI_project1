@@ -59,8 +59,9 @@ def makeAdjList(cellMatrix):
             if cell.teleport == None:
                 for direction in directions:
                     if 0 <= cell.row+direction[0] < len(cellMatrix) and 0 <= cell.col+direction[1] < len(cellMatrix[0]):
-                        cell.adj.append(
-                            cellMatrix[cell.row+direction[0]][cell.col+direction[1]])
+                        if cellMatrix[cell.row+direction[0]][cell.col+direction[1]].cost != math.inf:
+                            cell.adj.append(
+                                cellMatrix[cell.row+direction[0]][cell.col+direction[1]])
             else:
                 cell.adj.append(cellMatrix[cell.teleport[0]][cell.teleport[1]])
 

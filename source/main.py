@@ -1,7 +1,8 @@
-from lib import *
 from search_algorithm.dfs import *
-
+from search_algorithm.ucs import *
 from cell import Cell
+from lib import *
+
 
 if __name__ == "__main__":
     bonus_points,  cellMatrix, beginCell, exitCell = read_file(
@@ -10,11 +11,8 @@ if __name__ == "__main__":
     makeAdjList(cellMatrix)
     visitedOrder = []
 
-    dfs(beginCell, exitCell, visitedOrder)
+    ucs(beginCell, exitCell, visitedOrder)
     route = make_route(cellMatrix, beginCell, exitCell)
-
-    # print(visitedOrder)
-    # print(route)
 
     visualize_maze(cellMatrix, bonus_points, [beginCell.row, beginCell.col], [
                    exitCell.row, exitCell.col], route=route)
