@@ -1,5 +1,10 @@
-from cell import Cell
+import os, sys
 
+parent = os.path.abspath('.')
+sys.path.insert(1, parent)
+
+from cell import Cell
+import math
 
 class Heuristic:
     TYPE_MANHATTAN_DISTANCE = 1
@@ -20,4 +25,4 @@ class Heuristic:
         return abs(cell.row - self.exitCell.row) + abs(cell.col - self.exitCell.col)
 
     def _heuristic2(self, cell):
-        return 0
+        return math.sqrt((cell.row-self.exitCell.row)**2+(cell.col+self.exitCell.col)**2)

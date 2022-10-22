@@ -6,7 +6,7 @@ def bfs(beginCell, exitCell, visitedOrder):
         return
     queue = Queue(0)
     queue.put(beginCell)
-    while queue.empty()==False:
+    while not queue.empty():
         current=queue.get()
         for neighbor in current.adj:
             if neighbor.prev == None and neighbor.cost < math.inf:
