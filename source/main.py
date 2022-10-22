@@ -1,5 +1,6 @@
 from lib import *
 from search_algorithm.dfs import *
+from search_algorithm.Heuristic import *
 
 from cell import Cell
 
@@ -9,6 +10,9 @@ if __name__ == "__main__":
 
     makeAdjList(cellMatrix)
     visitedOrder = []
+
+    heuristic = Heuristic(exitCell, 1)
+    print(heuristic.getValue(beginCell))
 
     dfs(beginCell, exitCell, visitedOrder)
     route = make_route(cellMatrix, beginCell, exitCell)
