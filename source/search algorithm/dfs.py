@@ -1,17 +1,12 @@
 # todo: thêm hàm makeGraph biến đổi cellMatrix thành danh sách kề graph[]
-def dfs(graph, beginCell, exitCell, bonus_points):
-    route, stack = [], [beginCell]
-    tracking = {beginCell: beginCell}
-
-    while stack:
-        currentCell = stack.pop()
-        if currentCell == exitCell:
-            break
-        for neighbor in graph[currentCell]:
-            if currentCell not in tracking:
-                stack.append(neighbor)
-                tracking[currentCell] = currentCell
-
- # backtrack ...
-
-    return route
+# todo: vehinh(begin,exit,matrixCell)
+def dfs(adjList, beginCell, exitCell, visitedOrder):
+    if beginCell == exitCell:
+        return
+    for neighbor in adjList[beginCell]:
+        if neighbor.visited == False:
+            neighbor.prev = beginCell
+            neighbor.distance = beginCell.distance + neighbor.cost
+            neighbor.visited = True
+            visitedOrder.append(neighbor)
+            dfs(adjList, neighbor, exitCell)

@@ -1,2 +1,2 @@
-def astar(cellMatrix, beginCell, exitCell, bonus_points):
+def astar(cellMatrix, beginCell, exitCell):
     print(1)

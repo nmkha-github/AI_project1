@@ -1,2 +1,2 @@
-def gbfs(cellMatrix, beginCell, exitCell, bonus_points):
+def gbfs(cellMatrix, beginCell, exitCell):
     print(1)
