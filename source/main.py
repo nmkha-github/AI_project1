@@ -10,16 +10,16 @@ import os
 from cell import *
 
 if __name__ == "__main__":
-    for filename in os.listdir('../input/level_1/'):
-        path=os.path.join('../input/level_1/',filename)
-        filenameTrip=filename.rsplit('.', 1)[0]
-        os.makedirs(f'../output/level_1/{filenameTrip}/')
+    for filename in os.listdir('input/level_1/'):
+        path = os.path.join('input/level_1/', filename)
+        filenameTrip = filename.rsplit('.', 1)[0]
+        os.makedirs(f'output/level_1/{filenameTrip}/')
         bonus_points,  cellMatrix, beginCell, exitCell = read_file(path)
         makeAdjList(cellMatrix)
         visitedOrder = []
-        heuristicA=Heuristic(exitCell,1)
-        gbfs(beginCell, exitCell, visitedOrder,heuristicA)
+        heuristicA = Heuristic(exitCell, 1)
+        gbfs(beginCell, exitCell, visitedOrder, heuristicA)
         route = make_route(cellMatrix, beginCell, exitCell)
-        out=f'../output/level_1/{filenameTrip}/gbfs.jpg'
+        out = f'output/level_1/{filenameTrip}/gbfs.jpg'
         visualize_maze(cellMatrix, bonus_points, [beginCell.row, beginCell.col], [
-                       exitCell.row, exitCell.col], route=route,outputPath=out)
+                       exitCell.row, exitCell.col], route=route, outputPath=out)
