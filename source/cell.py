@@ -8,6 +8,7 @@ class Cell:
         self.cost = cost
         self.distance = math.inf
         self.prev = None
+        self.visited = False
         self.adj = []
         self.teleport = None
         self.f=-1
