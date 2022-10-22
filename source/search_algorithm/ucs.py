@@ -25,15 +25,21 @@ class Heap:
 
     def push(self, node):
         self.size += 1
-        self.heap.append(node)
+        if len(self.heap) <= self.size:
+            self.heap.append(node)
+        else:
+            self.heap[self.size] = node
+
         current = self.size
 
         if self.size == 1:
             return
 
-        while current > 0 and self.heap[current].distance < self.heap[self.parent(current)].distance:
+        while self.heap[current].distance < self.heap[self.parent(current)].distance:
             self.swap(current, self.parent(current))
             current = self.parent(current)
+            if current <= 1:
+                break
 
     def down(self, pos):
         m = self.leftChild(pos)
@@ -41,7 +47,7 @@ class Heap:
             if self.heap[m].distance < self.heap[self.rightChild(pos)].distance:
                 m = self.rightChild(pos)
             if self.heap[pos].distance > self.heap[m].distance:
-                self.swap(self.heap[pos], self.heap[m])
+                self.swap(pos, m)
                 self.down(m)
 
     def pop(self):

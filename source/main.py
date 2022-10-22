@@ -5,7 +5,7 @@ from search_algorithm.ucs import *
 
 if __name__ == "__main__":
     bonus_points,  cellMatrix, beginCell, exitCell = read_file(
-        '../input/level_1/input1.txt')
+        'input/level_1/input1.txt')
 
     makeAdjList(cellMatrix)
     visitedOrder = []
