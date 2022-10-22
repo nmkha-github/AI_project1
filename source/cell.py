@@ -7,5 +7,14 @@ class Cell:
         self.col = col
         self.cost = cost
         self.distance = math.inf
-        self.visited = False
         self.prev = None
+        self.adj = []
+        self.teleport = None
+
+    def __str__(self) -> str:
+        res = f'Pos: {self.row},{self.col}  Cost: {self.cost}  Dis: {self.distance}    ?{self.prev!=None}   Pre: '
+        if self.prev is None:
+            res = res + 'None'
+        else:
+            res = res + f'{self.prev.row},{self.prev.col}'
+        return res

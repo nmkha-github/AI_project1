@@ -43,14 +43,26 @@ def make_route(matrix, beginCell, exitCell):
     route = []
     currentCell = exitCell
     while (currentCell != beginCell):
-        print(currentCell)
         # time.sleep(1)
         route.append([currentCell.row, currentCell.col])
-        currentCell = currentCell.previous
+        currentCell = currentCell.prev
     route.append([beginCell.row, beginCell.col])
     route.reverse()
 
     return route
+
+
+def makeAdjList(cellMatrix):
+    directions = [[-1, 0], [1, 0], [0, -1], [0, 1]]
+    for row in cellMatrix:
+        for cell in row:
+            if cell.teleport == None:
+                for direction in directions:
+                    if 0 <= cell.row+direction[0] < len(cellMatrix) and 0 <= cell.col+direction[1] < len(cellMatrix[0]):
+                        cell.adj.append(
+                            cellMatrix[cell.row+direction[0]][cell.col+direction[1]])
+            else:
+                cell.adj.append(cellMatrix[cell.teleport[0]][cell.teleport[1]])
 
 
 def visualize_maze(matrix, bonus, start, end, route=None, visited=None):
@@ -65,7 +77,7 @@ def visualize_maze(matrix, bonus, start, end, route=None, visited=None):
     walls = [(i, j) for i in range(len(matrix))
              for j in range(len(matrix[0])) if matrix[i][j].cost == math.inf]
     visited = [(i, j) for i in range(len(matrix))
-               for j in range(len(matrix[0])) if matrix[i][j].previous]
+               for j in range(len(matrix[0])) if matrix[i][j].prev]
 
     if route:
         direction = []
