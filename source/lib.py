@@ -4,6 +4,8 @@ import matplotlib.pyplot as plt
 
 from cell import Cell
 
+# use for normal level (without teleport)
+
 
 def read_file(file_name: str = 'maze.txt'):
     f = open(file_name, 'r')
@@ -36,6 +38,56 @@ def read_file(file_name: str = 'maze.txt'):
                 beginCell = cell
             row.append(cell)
         cellMatrix.append(row)
+
+    return bonus_points, cellMatrix, beginCell, exitCell
+
+# use for advanced level (with teleport)
+
+
+def read_file_advance(file_name: str = 'maze.txt'):
+    f = open(file_name, 'r')
+    n_bonus_points = int(next(f)[:-1])
+    bonus_points = []
+    for i in range(n_bonus_points):
+        x, y, reward = map(int, next(f)[:-1].split(' '))
+        bonus_points.append((x, y, reward))
+
+    n_door_pair = int(next(f)[:-1])
+    teleport_pairs = []
+    for i in range(n_door_pair):
+        x1, y1, x2, y2 = map(int, next(f)[:-1].split(' '))
+        teleport_pairs.append([x1, y1, x2, y2])
+
+    text = f.read()
+    matrix = [list(i) for i in text.splitlines()]
+    f.close()
+
+    # make matrix of Cell
+    cellMatrix = []
+    beginCell = None
+    exitCell = None
+    for i in range(len(matrix)):
+        row = []
+        for j in range(len(matrix[i])):
+            cost = (math.inf if matrix[i][j] == 'x' else 0)
+            if (matrix[i][j] == '+'):
+                for bonus_point in bonus_points:
+                    if (bonus_point[0] == i and bonus_point[1] == j):
+                        cost = bonus_point[2]
+            cell = Cell(i, j, cost + 1)
+            if ((matrix[i][j] == ' ') and (i == 0 or i == len(matrix) - 1 or j == 0 or j == len(matrix[i]) - 1)):
+                exitCell = cell
+            if (matrix[i][j] == 'S'):
+                beginCell = cell
+            row.append(cell)
+        cellMatrix.append(row)
+
+    for teleport in teleport_pairs:
+        cellMatrix[teleport[0]][teleport[1]].teleport = [
+            teleport[2], teleport[3]]
+        cellMatrix[teleport[2]][teleport[3]].teleport = [
+            teleport[0], teleport[1]]
+
     return bonus_points, cellMatrix, beginCell, exitCell
 
 
@@ -56,13 +108,12 @@ def makeAdjList(cellMatrix):
     directions = [[-1, 0], [0, -1], [1, 0], [0, 1]]
     for row in cellMatrix:
         for cell in row:
-            if cell.teleport == None:
-                for direction in directions:
-                    if 0 <= cell.row+direction[0] < len(cellMatrix) and 0 <= cell.col+direction[1] < len(cellMatrix[0]):
-                        if cellMatrix[cell.row+direction[0]][cell.col+direction[1]].cost != math.inf:
-                            cell.adj.append(
-                                cellMatrix[cell.row+direction[0]][cell.col+direction[1]])
-            else:
+            for direction in directions:
+                if 0 <= cell.row+direction[0] < len(cellMatrix) and 0 <= cell.col+direction[1] < len(cellMatrix[0]):
+                    if cellMatrix[cell.row+direction[0]][cell.col+direction[1]].cost != math.inf:
+                        cell.adj.append(
+                            cellMatrix[cell.row+direction[0]][cell.col+direction[1]])
+            if cell.teleport != None:
                 cell.adj.append(cellMatrix[cell.teleport[0]][cell.teleport[1]])
 
 
@@ -120,6 +171,20 @@ def visualize_maze(matrix, bonus, start, end, route=None, visited=None):
     plt.text(end[1], -end[0], 'EXIT', color='red',
              horizontalalignment='center',
              verticalalignment='center')
+
+    teleports = [matrix[i][j] for i in range(len(matrix)) for j in range(len(
+        matrix[0])) if matrix[i][j].teleport != None]
+    teleport_index = 1
+    for teleport in teleports:
+        plt.text(teleport.col, -teleport.row, teleport_index.__str__(), color='black',
+                 horizontalalignment='center', fontweight='bold', backgroundcolor='gray',
+                 verticalalignment='center')
+        plt.text(teleport.teleport[1], -teleport.teleport[0], teleport_index.__str__(), color='black',
+                 horizontalalignment='center', fontweight='bold', backgroundcolor='gray',
+                 verticalalignment='center')
+        teleport_index += 1
+        teleports.remove(matrix[teleport.teleport[0]][teleport.teleport[1]])
+
     plt.xticks([])
     plt.yticks([])
     plt.show()
