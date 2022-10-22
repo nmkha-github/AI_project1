@@ -1,13 +1,12 @@
 import math
 import time
 import matplotlib.pyplot as plt
+from matplotlib.pyplot import figure
 
 from cell import Cell
 
-# use for normal level (without teleport)
 
-
-def read_file(file_name: str = 'maze.txt'):
+def read_file(file_name: str = 'maze.txt'):  # use for normal level (without teleport)
     f = open(file_name, 'r')
     n_bonus_points = int(next(f)[:-1])
     bonus_points = []
@@ -41,9 +40,8 @@ def read_file(file_name: str = 'maze.txt'):
 
     return bonus_points, cellMatrix, beginCell, exitCell
 
+
 # use for advanced level (with teleport)
-
-
 def read_file_advance(file_name: str = 'maze.txt'):
     f = open(file_name, 'r')
     n_bonus_points = int(next(f)[:-1])
@@ -117,7 +115,7 @@ def makeAdjList(cellMatrix):
                 cell.adj.append(cellMatrix[cell.teleport[0]][cell.teleport[1]])
 
 
-def visualize_maze(matrix, bonus, start, end,outputPath, route=None, visited=None):
+def visualize_maze(matrix, bonus, start, end, outputPath, route=None, visited=None):
     """
     Args:
       1. matrix: The matrix read from the input file,
@@ -146,7 +144,8 @@ def visualize_maze(matrix, bonus, start, end,outputPath, route=None, visited=Non
         direction.pop(0)
 
     # 2. Drawing the map
-    ax = plt.figure(dpi=100).add_subplot(111)
+    ax = plt.figure(
+        figsize=(12, 12*len(matrix)/len(matrix[0])), dpi=100).add_subplot(111)
 
     for i in ['top', 'bottom', 'right', 'left']:
         ax.spines[i].set_visible(False)
@@ -172,6 +171,7 @@ def visualize_maze(matrix, bonus, start, end,outputPath, route=None, visited=Non
              horizontalalignment='center',
              verticalalignment='center')
 
+    # draw teleports
     teleports = [matrix[i][j] for i in range(len(matrix)) for j in range(len(
         matrix[0])) if matrix[i][j].teleport != None]
     teleport_index = 1
