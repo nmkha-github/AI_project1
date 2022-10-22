@@ -66,19 +66,18 @@ def ucs(beginCell, exitCell, visitedOrder):
 
     while not heap.empty():
         currentCell = heap.pop()
-        print(currentCell, ' ')
-        for x in heap.heap:
-            if x == 0:
-                continue
-            print(x.row, x.col)
+        # print(currentCell, ' ')
+        # for x in heap.heap:
+        #     if x == 0:
+        #         continue
+        #     print(x.row, x.col)
         visitedOrder.append(currentCell)
 
         if currentCell == exitCell:
             break
 
         for nearCell in currentCell.adj:
-            if (nearCell.prev == None
-                    and nearCell.distance > nearCell.cost + currentCell.distance):
+            if (nearCell.distance > nearCell.cost + currentCell.distance):
                 # print(currentCell.row, ',', currentCell.col,
                 #       ' ', nearCell.row, ',', nearCell.col)
                 nearCell.distance = nearCell.cost + currentCell.distance

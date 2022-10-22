@@ -53,7 +53,7 @@ def make_route(matrix, beginCell, exitCell):
 
 
 def makeAdjList(cellMatrix):
-    directions = [[-1, 0], [1, 0], [0, -1], [0, 1]]
+    directions = [[-1, 0], [0, -1], [1, 0], [0, 1]]
     for row in cellMatrix:
         for cell in row:
             if cell.teleport == None:

@@ -1,16 +1,14 @@
 import math
 
-# todo: thêm hàm makeGraph biến đổi cellMatrix thành danh sách kề graph[]
-# todo: vehinh(begin,exit,matrixCell)
-
 
 def dfs(beginCell, exitCell, visitedOrder):
     if beginCell == exitCell:
-        return
+        return -1
     for neighbor in beginCell.adj:
-        if neighbor.prev == None and neighbor.cost < math.inf:
+        if neighbor.prev == None:
             neighbor.prev = beginCell
             neighbor.distance = beginCell.distance + neighbor.cost
             neighbor.visited = True
             visitedOrder.append(neighbor)
-            dfs(neighbor, exitCell, visitedOrder)
+            if dfs(neighbor, exitCell, visitedOrder) == -1:
+                return -1
