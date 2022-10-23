@@ -127,19 +127,19 @@ if __name__ == "__main__":
             f.write("NO")
         else:
             f.write(str(distance))
-    for filename in os.listdir('input/level_advanced/'):
-        path = os.path.join('input/level_advanced/', filename)
+    for filename in os.listdir('input/advance/'):
+        path = os.path.join('input/advance/', filename)
         filenameTrip = filename.rsplit('.', 1)[0]
-        os.makedirs(f'output/level_advanced/{filenameTrip}')
+        os.makedirs(f'output/advance/{filenameTrip}')
         bonus_points, cellMatrix, beginCell, exitCell = read_file_advance(path)
         makeAdjList(cellMatrix)
         visitedOrder = []
         advancedalgo(beginCell, exitCell, visitedOrder)
         route = make_route(cellMatrix, beginCell, exitCell)
-        out = f'output/level_advanced/{filenameTrip}/advancedalgo.jpg'
+        out = f'output/advance/{filenameTrip}/advancedalgo.jpg'
         visualize_maze(cellMatrix, bonus_points, [beginCell.row, beginCell.col], [
             exitCell.row, exitCell.col], route=route, outputPath=out)
-        f = open(f'output/level_advanced/{filenameTrip}/advancedalgo.txt', 'w')
+        f = open(f'output/advance/{filenameTrip}/advancedalgo.txt', 'w')
         if exitCell.prev == None:
             f.write("NO")
         else:
