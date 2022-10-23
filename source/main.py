@@ -132,20 +132,24 @@ if __name__ == "__main__":
         else:
             f.write(str(distance))
 
+
     print("level_advance")
     for filename in os.listdir('input/advance/'):
         path = os.path.join('input/advance/', filename)
         filenameTrip = filename.rsplit('.', 1)[0]
         os.makedirs(f'output/advance/{filenameTrip}')
+
         bonus_points, cellMatrix, beginCell, exitCell = read_file_advance(path)
         makeAdjList(cellMatrix)
         visitedOrder = []
         extendbfs(beginCell, exitCell, visitedOrder)
         route = make_route(cellMatrix, beginCell, exitCell)
+
         out = f'output/advance/{filenameTrip}/extendbfs.jpg'
         visualize_maze(cellMatrix, bonus_points, [beginCell.row, beginCell.col], [
             exitCell.row, exitCell.col], route=route, outputPath=out)
         f = open(f'output/advance/{filenameTrip}/extendbfs.txt', 'w')
+
         if exitCell.prev == None:
             f.write("NO")
         else:
