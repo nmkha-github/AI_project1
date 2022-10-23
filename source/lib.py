@@ -117,7 +117,18 @@ def makeAdjList(cellMatrix):
                             cellMatrix[cell.row+direction[0]][cell.col+direction[1]])
             if cell.teleport != None:
                 cell.adj.append(cellMatrix[cell.teleport[0]][cell.teleport[1]])
-
+def resetMatrix(cellMatrix,beginCell):
+    directions = [[-1, 0], [0, -1], [1, 0], [0, 1]]
+    for row in cellMatrix:
+        for cell in row:
+            for direction in directions:
+                if 0 <= cell.row + direction[0] < len(cellMatrix) and 0 <= cell.col + direction[1] < len(cellMatrix[0]):
+                    cell.visited=False
+                    cell.distance=math.inf
+                    cell.f=-1
+                    cell.prev=None
+                    cell.canExit=False
+    beginCell.distance=0
 
 def visualize_maze(matrix, bonus, start, end, outputPath, route=None, visited=None):
     """
@@ -192,7 +203,7 @@ def visualize_maze(matrix, bonus, start, end, outputPath, route=None, visited=No
     plt.xticks([])
     plt.yticks([])
     plt.savefig(outputPath)
-    plt.show()
+    # plt.show()
     print(f'Starting point (x, y) = {start[0], start[1]}')
     print(f'Ending point (x, y) = {end[0], end[1]}')
 
