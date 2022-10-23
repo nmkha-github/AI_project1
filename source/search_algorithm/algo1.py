@@ -54,7 +54,6 @@ def algo1(cellMatrix, beginCell, exitCell, bonus_points):
 
     totalDistance = 0
     for point in route[1:]:
-        print(cellMatrix[point[0]][point[1]].cost)
         totalDistance += cellMatrix[point[0]][point[1]].cost
         if cellMatrix[point[0]][point[1]].cost <= 0:
             cellMatrix[point[0]][point[1]].cost = 1
