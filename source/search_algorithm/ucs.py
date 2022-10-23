@@ -58,7 +58,7 @@ class Heap:
         return popped
 
 
-def ucs(beginCell, exitCell, visitedOrder):
+def ucs(beginCell, exitCell, visitedOrder, findAll=False):
     heap = Heap()
     beginCell.distance = 0
     beginCell.prev = beginCell
@@ -69,7 +69,7 @@ def ucs(beginCell, exitCell, visitedOrder):
         currentCell.visited = True
         visitedOrder.append(currentCell)
 
-        if currentCell == exitCell:
+        if not findAll and currentCell == exitCell:
             break
 
         for nearCell in currentCell.adj:
