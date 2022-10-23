@@ -10,7 +10,6 @@ def findNearestCellCanExit(cell, route):
     while not currentCell.canExit:
         tempRoute.append(currentCell)
         distance += currentCell.cost
-        currentCell.canExit = True
         currentCell = currentCell.prev
 
     temp1 = []
@@ -25,7 +24,10 @@ def findNearestCellCanExit(cell, route):
     temp2 = temp2[:-1]
 
     sumRoute = temp2 + temp1
+
     if (distance - cell.cost) * 2 + cell.cost < 0:
+        for cell in tempRoute:
+            cell.canExit = True
         pos = route.index([currentCell.row, currentCell.col]) + 1
         route[pos:pos] = sumRoute
 
@@ -44,12 +46,13 @@ def algo1(cellMatrix, beginCell, exitCell, bonus_points):
         currentCell.canExit = True
         currentCell = currentCell.prev
 
+    beginCell.canExit = True
     route.append([beginCell.row, beginCell.col])
     route.reverse()
 
     for bonus in bonus_points:
-        if not currentCell.canExit:
-            bonusCell = cellMatrix[bonus[0]][bonus[1]]
+        bonusCell = cellMatrix[bonus[0]][bonus[1]]
+        if not bonusCell.canExit:
             findNearestCellCanExit(bonusCell, route)
 
     totalDistance = 0
