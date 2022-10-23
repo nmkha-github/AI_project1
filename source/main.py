@@ -23,3 +23,8 @@ if __name__ == "__main__":
         out = f'output/level_1/{filenameTrip}/gbfs.jpg'
         visualize_maze(cellMatrix, bonus_points, [beginCell.row, beginCell.col], [
                        exitCell.row, exitCell.col], route=route, outputPath=out)
+        f = open(f'output/level_1/{filenameTrip}/gbfs.txt', 'w')
+        if exitCell.prev == None:
+            f.write("NO")
+        else:
+            f.write(str(exitCell.distance))

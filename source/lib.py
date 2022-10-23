@@ -35,6 +35,7 @@ def read_file(file_name: str = 'maze.txt'):  # use for normal level (without tel
                 exitCell = cell
             if (matrix[i][j] == 'S'):
                 beginCell = cell
+                beginCell.distance = 0
             row.append(cell)
         cellMatrix.append(row)
 
@@ -77,6 +78,7 @@ def read_file_advance(file_name: str = 'maze.txt'):
                 exitCell = cell
             if (matrix[i][j] == 'S'):
                 beginCell = cell
+                beginCell.distance = 0
             row.append(cell)
         cellMatrix.append(row)
 
@@ -90,8 +92,10 @@ def read_file_advance(file_name: str = 'maze.txt'):
 
 
 def make_route(matrix, beginCell, exitCell):
-    route = []
     currentCell = exitCell
+    if exitCell.prev == None:
+        return []
+    route = []
     while (currentCell != beginCell):
         # time.sleep(1)
         route.append([currentCell.row, currentCell.col])

@@ -1,8 +1,10 @@
+from queue import PriorityQueue
 import os
 import sys
 sys.path.append(os.getcwd())
-from queue import PriorityQueue
-def astar(beginCell, exitCell,visitedOrder,heuristic):
+
+
+def astar(beginCell, exitCell, visitedOrder, heuristic):
     if beginCell == exitCell:
         return
     open = PriorityQueue()
@@ -15,15 +17,17 @@ def astar(beginCell, exitCell,visitedOrder,heuristic):
         close.add(currentCell)
         for nearCell in currentCell.adj:
             if nearCell == exitCell:
-                nearCell.prev=currentCell
+                nearCell.prev = currentCell
+                nearCell.distance = currentCell.distance + nearCell.cost
                 visitedOrder.append(nearCell)
                 return
             elif nearCell not in close:
-                gNew=currentCell.distance+nearCell.cost
-                hNew=heuristic.getValue(nearCell)
-                fNew=gNew+hNew
-                if nearCell.f==-1 or nearCell.f>fNew:
-                    nearCell.distance=gNew
-                    nearCell.f=fNew
-                    nearCell.prev=currentCell
-                    open.put((fNew,nearCell))
+                gNew = currentCell.distance+nearCell.cost
+                hNew = heuristic.getValue(nearCell)
+                fNew = gNew+hNew
+                if nearCell.f == -1 or nearCell.f > fNew:
+                    nearCell.distance = gNew
+                    nearCell.f = fNew
+                    nearCell.prev = currentCell
+                    nearCell.distance = currentCell.distance + nearCell.cost
+                    open.put((fNew, nearCell))
