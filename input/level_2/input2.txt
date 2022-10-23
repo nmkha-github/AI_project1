@@ -1,7 +1,7 @@
 5
 7 1 -2
 6 10 -5
-3 14 -3
+3 14 -20
 6 18 -4
 7 27 -6
 xxxxxxxxxxxxxxxxxxxxxxxxxxx xx
