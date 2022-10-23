@@ -22,6 +22,7 @@ def read_file(file_name: str = 'maze.txt'):  # use for normal level (without tel
     cellMatrix = []
     beginCell = None
     exitCell = None
+    maxRow=0
     for i in range(len(matrix)):
         row = []
         for j in range(len(matrix[i])):
@@ -37,8 +38,14 @@ def read_file(file_name: str = 'maze.txt'):  # use for normal level (without tel
                 beginCell = cell
                 beginCell.distance = 0
             row.append(cell)
+        maxRow=max(maxRow,len(row))
         cellMatrix.append(row)
-
+    for i in range(len(matrix)):
+        k=len(matrix[i])
+        while k<maxRow:
+            cell=Cell(i,k,1)
+            cellMatrix[i].append(cell)
+            k+=1
     return bonus_points, cellMatrix, beginCell, exitCell
 
 
